@@ -6,6 +6,7 @@
 <div class="container">
   <h1>Notes:</h1>
   <form>
+    {{ csrf_field() }}
     <div class="form-group">
          <label for="title">Title:</label>
          <input type="text" class="form-control" id="title">
@@ -32,6 +33,10 @@
         </div>
         <div class="checkbox">
           <label><input type="checkbox" value="">HTML</label>
+        </div>
+        <div class="btn">
+        <input type="submit" name="submit" value="Submit">
+          
         </div>
       </form>
 </div>

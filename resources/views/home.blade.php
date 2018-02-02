@@ -23,7 +23,7 @@
 
 <div class="container">
   <h1>Notes:</h1>
-  <form>
+  <form action="/insert" mathod="post">
     <div class="form-group">
          <label for="title">Title:</label>
          <input type="text" class="form-control" name="title" id="title">
@@ -32,7 +32,6 @@
       <label for="note">Body:</label>
       <textarea class="form-control" rows="5" name="note" id="note"></textarea>
     </div>
-  </form>
       <div class="form-group">
       <label for="type">Type:</label>
       <select class="form-control" name="note" id="type">
@@ -40,7 +39,6 @@
         <option>Private</option>
       </select>
     </div>
-      <form>
         <label for="title">Tags:</label>
         <div class="checkbox">
           <label><input type="checkbox" value="">JS</label>

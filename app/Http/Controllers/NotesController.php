@@ -2,9 +2,11 @@
 
 namespace Notebook\Http\Controllers;
 
-use Illuminate\Http\Request;
 
-use Auth;
+use Illuminate\Auth\Middleware\Auth;
+use Illuminate\Http\Request;
+use Notebook\Note;
+use Notebook\Tag;
 use Post;
 
 class NotesController extends Controller
@@ -24,17 +26,34 @@ class NotesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function insert(Request $req)
     {
-        if(Auth::check()) 
+        /*if(Auth::check()) 
             {
-                return view('notes');
-            }
+                $title = $req->input('title');
+                $note = $req->input('note');
+
+                $data = array('title'=>$title, 'note'=>$note);
+
+                DB::table('notes')->insert($data);
+
+                echo "Success";
+
+
+            }*/
+
+
 
         
     }
-    public function AllNotes(Auth $user, Post $notes){
-        $notes = $note->where("user_id", "=", $user->id)->get();
-        return view('notes' , compact('notes'));
+    
+    public function index()
+    {
+        $tag = Note::find(1)->tags;
+        return $tag;
+
+
     }
 }
+    
+

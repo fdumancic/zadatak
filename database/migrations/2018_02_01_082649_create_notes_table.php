@@ -16,8 +16,8 @@ class CreateNotesTable extends Migration
         Schema::create('notes', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
-            $table->mediumText('body');
-            $table->string('type');
+            $table->mediumText('note');
+            $table->enum('type', ['public', 'private']);
             $table->timestamps();
         });
     }
@@ -32,5 +32,7 @@ class CreateNotesTable extends Migration
         Schema::dropIfExists('notes');
     }
 
-        protected $table = 'notes';
+        
 }
+
+    

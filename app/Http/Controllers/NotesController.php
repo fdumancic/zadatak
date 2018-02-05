@@ -7,7 +7,8 @@ use Illuminate\Auth\Middleware\Auth;
 use Illuminate\Http\Request;
 use Notebook\Note;
 use Notebook\Tag;
-use Post;
+
+
 
 class NotesController extends Controller
 {
@@ -26,30 +27,44 @@ class NotesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function insert(Request $req)
-    {
-        /*if(Auth::check()) 
-            {
-                $title = $req->input('title');
-                $note = $req->input('note');
+    public function store(Request $request)
+    {   
+        if(!Auth::check()) {   
 
-                $data = array('title'=>$title, 'note'=>$note);
+            return back();
+        }
 
-                DB::table('notes')->insert($data);
+        $this->validate(request(), [
 
-                echo "Success";
+                'title' => 'required',
+                'body' => 'required'
+        ]); 
 
+        $data = new Note;
 
-            }*/
+        $data->user_id = Auth::id();
+        $data->title = $request->input('title');
+        $data->note = $request->input('note');
 
+        $data->save();
 
+        return redirect('/notes');
+
+    
 
         
     }
+
+    public function update()
+    {
+        //
+    }
+
+
     
     public function index()
     {
-        $tag = Note::find(1)->tags;
+        $tag = Note::find(2)->tags;
         return $tag;
 
 

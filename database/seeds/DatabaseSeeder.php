@@ -11,20 +11,24 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-       /* DB::table('notes')->insert([
-        	'title' => 'note 2',
+        DB::table('notes')->insert([
+        	'title' => 'note 1',
         	'note' => str_random(10),
         	'type' => 'public',
+            'created_at' => now(),
         ]);
-
         DB::table('tags')->insert([
-        	'tag' => 'JS',
+            'tag' => 'PHP',
+            'created_at' => now(),
         ]);
+
+
         DB::table('tag_note')->insert([
-        	'tag_id' => '3',
+        	'tag_id' => '1',
         	'note_id' => '1',
+            'created_at' => now(),
 
         ]);
-*/
+
     }
 }

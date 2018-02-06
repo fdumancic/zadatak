@@ -30,7 +30,7 @@ Route::get('/users', function() {
 	return json_encode($data);
 });
 
-Route::get('/users/me', 'UsersController@myself');
+Route::get('/users/me', 'UsersController@myself')->middleware('auth');
 
 Route::get('/users/{id}/', function($id) {
 	$data = DB::table('users')->where('id', $id)->get();
@@ -50,32 +50,50 @@ Route::get('/users/{id}/notes', function($id) {
 
 //Biljeske
 
-Route::get('/notes', function() {
+/*Route::get('/notes', function() {
 	$data['data']=DB::table('notes')->orderBy('title', 'asc')->paginate(10);
 	return json_encode($data);
-});
+});*/
 
-Route::post('/notes', 'NotesController@store');
+/*Route::get('/notes', function() {
+	if(request()->has('title')) {
+		$data = Notebook\Note::where('title', request('title'))->paginate(3)->appends('title', request('title'));
+	} else {
+		$data = Notebook\Note::paginate(3);
+	} 
+	return json_encode($data);
+});*/
 
 
-Route::put('notes/{id}', 'NotesController@update');
+Route::get('/notes', 'NotesController@search')->name('notes')->middleware('auth');
 
-Route::get('notes/{id}', function($id) {
+Route::post('/notes', 'NotesController@store')->middleware('auth');
+
+
+Route::put('/notes/{id}', 'NotesController@update')->middleware('auth');
+
+Route::get('/notes/{id}', function($id) {
 		$data = DB::table('notes')->where('id', $id)->get();
     	return json_encode($data);
-});
+})->middleware('auth');
 
-//Route::get('/notes', 'NotesController@index');
+
 
 //tagovi
 
-Route::get('/tags', function() {
+/*Route::get('/tags', function() {
 		$data['data']=DB::table('tags')->orderBy('tag', 'asc')->paginate(10);
 		return json_encode($data);
-});
+});*/
 
+Route::get('/tags', 'TagsController@search')->name('tags')->middleware('auth');
 
 Route::get('/tags/{id}/notes', function($id) {
+	if($id>0 && $id<5){
 	$note = tag::find($id)->notes;
     	return $note;
-});
+    } else {
+    	return 'wrong tag id';
+    }
+
+})->middleware('auth');

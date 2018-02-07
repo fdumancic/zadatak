@@ -3,6 +3,7 @@
 namespace Notebook\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
+use Notebook\Http\Middleware\AuthTest;
 
 class Kernel extends HttpKernel
 {
@@ -40,7 +41,13 @@ class Kernel extends HttpKernel
         'api' => [
             'throttle:60,1',
             'bindings',
+            'auth:api',
         ],
+
+        'AuthTest' => [
+            \Notebook\Http\Middleware\AuthTest::class,
+        ],
+
     ];
 
     /**
@@ -57,5 +64,6 @@ class Kernel extends HttpKernel
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \Notebook\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'AuthTest' => \Notebook\Http\Middleware\AuthTest::class,
     ];
 }

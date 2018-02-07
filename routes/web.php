@@ -11,7 +11,7 @@
 |
 */
 
-//use Illuminate\Auth\Middleware\Auth;
+use Illuminate\Routing\middleware;
 use Notebook\Note;
 use Notebook\Tag;
 

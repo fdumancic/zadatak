@@ -3,10 +3,12 @@
 namespace Notebook\Http\Controllers;
 
 
-use Illuminate\Auth\Middleware\Auth;
-use Request;
+use Auth;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 use Notebook\Note;
 use Notebook\Tag;
+
 
 
 
@@ -37,7 +39,9 @@ class NotesController extends Controller
         $this->validate(request(), [
 
                 'title' => 'required',
-                'body' => 'required'
+                'note' => 'required',
+                'type' => 'required'
+
         ]); 
 
         $data = new Note;
@@ -45,8 +49,12 @@ class NotesController extends Controller
         $data->user_id = Auth::id();
         $data->title = $request->input('title');
         $data->note = $request->input('note');
+        $data->type = $request->input('type');
+
 
         $data->save();
+
+
 
         return redirect('/notes');
 
@@ -65,7 +73,8 @@ class NotesController extends Controller
         $this->validate(request(), [
 
                 'title' => 'required',
-                'body' => 'required'
+                'note' => 'required',
+                'type' => 'required'
         ]); 
 
         $data = Note::find($id);
@@ -73,6 +82,8 @@ class NotesController extends Controller
         $data->user_id = Auth::id();
         $data->title = $request->input('title');
         $data->note = $request->input('note');
+        $data->type = $request->input('type');
+
 
         $data->save();
 
@@ -81,10 +92,10 @@ class NotesController extends Controller
 
 
     
-    public function search()
+    public function search(Request $request)
     {
         $builder = Note::query();
-        $term = Request::input('title', '');
+        $term = $request->input('title', '');
         if(!empty($term)){
             $builder->where('title', 'LIKE', '%'.$term.'%');
             $data = $builder->orderBy('title')->paginate(3);

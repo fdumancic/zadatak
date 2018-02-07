@@ -15,11 +15,11 @@ class TagNoteTableSeeder extends Seeder
      */
     public function run()
     {
-        $faker = Faker::create('Notebook\Tag_note');
+        $faker = Faker::create('Notebook\Notes_to_tags');
 
         for($i=1; $i<=10; $i++){
 
-        	DB::table('tag_note')->insert([
+        	DB::table('notes_to_tags')->insert([
         		'note_id' => $faker->unique()->numberBetween($min = 1, $max = 10),
         		'tag_id' => $faker->numberBetween($min = 1, $max = 4),
         		'created_at' => \Carbon\Carbon::now(),
@@ -30,7 +30,7 @@ class TagNoteTableSeeder extends Seeder
         }
         for($i=1; $i<=10; $i++){
 
-        	DB::table('tag_note')->insert([
+        	DB::table('notes_to_tags')->insert([
         		'note_id' => $faker->numberBetween($min = 1, $max = 10),
         		'tag_id' => $faker->numberBetween($min = 1, $max = 4),
         		'created_at' => \Carbon\Carbon::now(),

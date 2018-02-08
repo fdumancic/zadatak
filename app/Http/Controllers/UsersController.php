@@ -12,27 +12,34 @@ class UsersController extends Controller
 {
     public function myself()
     {
-    	if (Auth::check()){
+       	$my_id = Auth::id();
+		$data = DB::table('users')->where('id', $my_id)->get();
 
-	       	$my_id = Auth::id();
-			$data = DB::table('users')->where('id', $my_id)->get();
-	    	return json_encode($data);
-
-	    }
+    	return json_encode($data);
     }
 
-    /*public function public_notes()
+    public function read()
     {
-    	
+       	$data['data']=DB::table('users')->get();
+		return json_encode($data);
+    }
 
-	       	$my_id = Auth::id();
-	        $type = 'public';
-			$data = DB::table('notes')->where([
-				['user_id', '=', $my_id],
-				['type', '=', $type],
+   
+  	public function showUser($id)
+    {
+       	$data = DB::table('users')->where('id', $id)->get();
+    	return json_encode($data);
+    }
+
+    public function showUserNotes($id)
+    {
+       	$data = DB::table('notes')->where([
+				['user_id', '=', $id],
+				['type', '=', 'public'],
 			])->get();
-	    	return json_encode($data);
+    return json_encode($data);
+    }
 
-	    
-    }*/
+    
+   
 }

@@ -36,18 +36,12 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             //\Notebook\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
-        ],
-
-        'api' => [
-            'throttle:60,1',
-            'bindings',
-            'auth:api',
-        ],
-
-        'AuthTest' => [
             \Notebook\Http\Middleware\AuthTest::class,
         ],
 
+        'api' => [
+            'try.once'
+        ],
     ];
 
     /**
@@ -65,5 +59,6 @@ class Kernel extends HttpKernel
         'guest' => \Notebook\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'AuthTest' => \Notebook\Http\Middleware\AuthTest::class,
+        'try.once' => \Notebook\Http\Middleware\TryAuthOnceWithBasicAuth::class,
     ];
 }

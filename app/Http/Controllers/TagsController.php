@@ -10,10 +10,14 @@ use Notebook\Tag;
 
 class TagsController extends Controller
 {
-    public function notes_with_tag()
+    public function showNotesWithTag($id)
     {
-    	$note = tag::find(1)->notes;
-    	return $note;
+    	if($id>0 && $id<5){
+            $note = tag::find($id)->notes;
+            return $note;
+    } else {
+        return 'wrong tag id';
+    }
     }
 
     
@@ -31,4 +35,6 @@ class TagsController extends Controller
         return json_encode($data);
 
     }
+
+    
 }

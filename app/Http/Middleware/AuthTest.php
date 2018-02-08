@@ -18,8 +18,10 @@ class AuthTest
     public function handle($request, Closure $next)
     {
         if(!Auth::check()){
-            throw new Exception("Not authenticated");
-        } 
-        return $next($request);
+            return response()->json(['Status code' => '10.4.2 401 Unauthorized']);
+        } else {
+            
+            return $next($request);
+        }
     }
 }

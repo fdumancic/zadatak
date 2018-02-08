@@ -5,9 +5,11 @@ namespace Notebook\Http\Controllers;
 
 use Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Notebook\Note;
 use Notebook\Tag;
+
 
 
 
@@ -29,6 +31,14 @@ class NotesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function showNote($id)
+    {
+        $data = DB::table('notes')->where('id', $id)->get();
+        return json_encode($data);
+    }    
+
+
     public function store(Request $request)
     {   
         if(!Auth::check()) {   
@@ -40,22 +50,33 @@ class NotesController extends Controller
 
                 'title' => 'required',
                 'note' => 'required',
-                'type' => 'required'
+                'type' => 'required',
+                'id' => 'required'
 
         ]); 
 
-        $data = new Note;
+        $note = new Note;
 
-        $data->user_id = Auth::id();
-        $data->title = $request->input('title');
-        $data->note = $request->input('note');
-        $data->type = $request->input('type');
+        $note->user_id = Auth::id();
+        $note->title = $request->input('title');
+        $note->note = $request->input('note');
+        $note->type = $request->input('type');
+
+        $note->save();
+
+        //add tags to notes
+        $tags = $request->input('id');
+        $tags = explode(',', $tags);
+        $tag_count = count($tags);
 
 
-        $data->save();
+        $number_of_tags = Tag::whereIn('id', $tags)->get()->count();
+         
+        if($number_of_tags == $tag_count){
 
-
-
+            $note->tags()->attach($tags);
+        }
+    
         return redirect('/notes');
 
     
@@ -74,18 +95,30 @@ class NotesController extends Controller
 
                 'title' => 'required',
                 'note' => 'required',
-                'type' => 'required'
+                'type' => 'required', 
+                'id' => 'required'
         ]); 
 
-        $data = Note::find($id);
+        $note = Note::find($id);
 
-        $data->user_id = Auth::id();
-        $data->title = $request->input('title');
-        $data->note = $request->input('note');
-        $data->type = $request->input('type');
+        $note->user_id = Auth::id();
+        $note->title = $request->input('title');
+        $note->note = $request->input('note');
+        $note->type = $request->input('type');
 
+        $note->save();
 
-        $data->save();
+        //add tags to notes
+        $tags = $request->input('id');
+        $tags = explode(',', $tags);
+        $tag_count = count($tags);
+
+        $number_of_tags = Tag::whereIn('id', $tags)->get()->count();
+         
+        if($number_of_tags == $tag_count){
+
+            $note->tags()->sync($tags);
+        }
 
         return redirect('/notes');
     }

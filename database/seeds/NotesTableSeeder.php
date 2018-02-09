@@ -15,7 +15,7 @@ class NotesTableSeeder extends Seeder
      */
     public function run()
     {
-        $faker = Faker::create('Notebook\Notes');
+        $faker = Faker::create('App\Notes');
 
         for($i=1; $i<=10; $i++){
 

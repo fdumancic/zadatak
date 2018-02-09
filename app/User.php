@@ -1,6 +1,6 @@
 <?php
 
-namespace Notebook;
+namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -29,7 +29,7 @@ class User extends Authenticatable
 
     public function notes()
     {
-        return $this->hasMany('Notebook\Note', 'notes');
+        return $this->hasMany('App\Note', 'notes');
     }
 
     

@@ -1,27 +1,26 @@
 <?php
 
-namespace Notebook\Http\Controllers;
+namespace App\Http\Controllers;
 
 use Request;
 use Auth;
-
-use Notebook\Note;
-use Notebook\Tag;
+use App\Note;
+use App\Tag;
 
 class TagsController extends Controller
 {
     public function showNotesWithTag($id)
     {
-    	if($id>0 && $id<5){
+        if($id>0 && $id<5){
             $note = tag::find($id)->notes;
             return $note;
     } else {
         return 'wrong tag id';
-    }
+        }
     }
 
     
-     public function search()
+    public function search()
     {
         $builder = Tag::query();
         $term = Request::input('tag', '');
@@ -32,7 +31,7 @@ class TagsController extends Controller
             $data = $builder->orderBy('created_at')->paginate(3);
         }
 
-        return json_encode($data);
+        return $data;
 
     }
 

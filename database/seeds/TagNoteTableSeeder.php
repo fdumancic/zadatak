@@ -15,7 +15,7 @@ class TagNoteTableSeeder extends Seeder
      */
     public function run()
     {
-        $faker = Faker::create('Notebook\Notes_to_tags');
+        $faker = Faker::create('App\Notes_to_tags');
 
         for($i=1; $i<=10; $i++){
 

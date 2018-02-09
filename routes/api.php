@@ -2,8 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\middleware;
-use Notebook\Note;
-use Notebook\Tag;
+use App\Note;
+use App\Tag;
 
 /*
 |--------------------------------------------------------------------------

@@ -1,13 +1,13 @@
 <?php
 
-namespace Notebook;
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
 class Note extends Model
 {
    public function tags() {
-   		return $this->belongsToMany('Notebook\Tag', 'notes_to_tags')->withTimestamps();
+   		return $this->belongsToMany('App\Tag', 'notes_to_tags')->withTimestamps();
    }
 
    public function search($query, $term) {
@@ -17,6 +17,6 @@ class Note extends Model
 	}
 
 	public function user() {
-   		return $this->belongsTo('Notebook\User', 'users');
+   		return $this->belongsTo('App\User', 'users');
    }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Notebook\Exceptions;
+namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
@@ -48,6 +48,13 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if($exception instanceof \Illuminate\Validation\ValidationException) {
+            return response([
+                'message' => $exception->getMessage(),
+                'errors' => $exception->errors()
+            ], 422);
+        }
+
         return parent::render($request, $exception);
     }
 }

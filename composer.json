@@ -23,7 +23,7 @@
             "database/factories"
         ],
         "psr-4": {
-            "Notebook\\": "app/"
+            "App\\": "app/"
         }
     },
     "autoload-dev": {

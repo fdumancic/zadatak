@@ -15,7 +15,7 @@ class TagsTableSeeder extends Seeder
      */
     public function run()
     {
-        $faker = Faker::create('Notebook\Tags');
+        $faker = Faker::create('App\Tags');
 
         for($i=1; $i<=4; $i++){
 

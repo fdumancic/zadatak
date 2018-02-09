@@ -29,11 +29,11 @@ Route::get('/users/{id}/notes', 'UsersController@showUserNotes')->middleware('Au
 
 
 
-//Biljeske
+//biljeske
 
 Route::get('/notes', 'NotesController@search')->name('notes')->middleware('AuthTest');
 
-Route::post('/notes', 'NotesController@store')->middleware('auth');
+Route::post('/notes', 'NotesController@store')->middleware('AuthTest');
 
 Route::put('/notes/{id}', 'NotesController@update')->middleware('AuthTest');
 

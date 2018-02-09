@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Note extends Model
 {
    public function tags() {
-   		return $this->belongsToMany('Notebook\Tag', 'notes_to_tags');
+   		return $this->belongsToMany('Notebook\Tag', 'notes_to_tags')->withTimestamps();
    }
 
    public function search($query, $term) {

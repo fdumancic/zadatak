@@ -77,7 +77,7 @@ class NotesController extends Controller
             $note->tags()->attach($tags);
         }
     
-        return redirect('/notes');
+        return 'stored';
 
     
 
@@ -120,7 +120,7 @@ class NotesController extends Controller
             $note->tags()->sync($tags);
         }
 
-        return redirect('/notes');
+        return 'updated';
     }
 
 

@@ -7,6 +7,7 @@ use App\Note;
 use App\Rules\ValidTag;
 use App\Tag;
 use Auth;
+use Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 
@@ -44,16 +45,15 @@ class NotesController extends Controller
         $note->note = $request->input('note');
         $note->type = $request->input('type');
         $tags = $request->input('tag_id');
-        $note->save();
-
+      
         //add tags to notes
-        //$tags = $request->input('tag_id');
+
         $tags = explode(',', $tags);
         $tag_count = count($tags);
         $number_of_tags = Tag::whereIn('id', $tags)->get()->count();
          
         if($number_of_tags == $tag_count){
-
+            $note->save();
             $note->tags()->attach($tags);
         }
         return 'stored';
@@ -61,15 +61,18 @@ class NotesController extends Controller
 
     public function update(ValidationRequest $request, $id)
     {
-
         $note = Note::find($id);
-        $note->user_id = Auth::id();
+
+        if(Gate::denies('update-note', [$note])){
+            //return response("User can't perform this action.", 403);
+            abort(403, 'Access denied');           
+        }
+
         $note->title = $request->input('title');
         $note->note = $request->input('note');
         $note->type = $request->input('type');
         $tags = $request->input('tag_id');
-        $note->save();
-
+        
         //add tags to notes
 
         $tags = explode(',', $tags);
@@ -77,7 +80,7 @@ class NotesController extends Controller
         $number_of_tags = Tag::whereIn('id', $tags)->get()->count(); 
 
         if($number_of_tags == $tag_count){
-
+            $note->save();
             $note->tags()->sync($tags);
         }
         return 'updated';

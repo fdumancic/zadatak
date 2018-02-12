@@ -11,14 +11,22 @@ class TagsController extends Controller
 {
     public function showNotesWithTag($id)
     {
-        if($id>0 && $id<5){
-            $note = tag::find($id)->notes;
-            return $note;
-    } else {
-        return 'wrong tag id';
-        }
-    }
+        $data = Tag::find($id)
+        ->notes()
+        ->where([
+            ['tag_id', '=', $id],
+            ['user_id', '=', Auth::id()],
+        ])
+        ->orWhere([
+            ['tag_id', '=', $id],
+            ['type', '=', 'public'],
+        ])
+        ->orderBy('id')
+        ->get();
 
+        return $data;
+
+    }
     
     public function search()
     {
@@ -35,5 +43,4 @@ class TagsController extends Controller
 
     }
 
-    
 }

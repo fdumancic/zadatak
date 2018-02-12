@@ -30,7 +30,7 @@ class ValidationRequest extends FormRequest
                 'title' => 'required',
                 'note' => 'required',
                 'type' => 'required',
-                'tag_id' => ['required', new ValidTag],
+                'tag_id' => ['required', new ValidTag('tags')],
    
         ];
     }

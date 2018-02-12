@@ -7,6 +7,15 @@ use Illuminate\Support\Facades\DB;
 
 class ValidTag implements Rule
 {
+    protected $db_name;
+    protected $field_name;
+
+    public function __construct($db_name)
+    {
+        $this->db_name = $db_name;
+    }
+
+
     /**
      * Determine if the validation rule passes.
      *
@@ -16,15 +25,15 @@ class ValidTag implements Rule
      */
     public function passes($attribute, $value)
     {
-        $db_name = 'tags';
         if(!empty($value)){
             $tags = explode(',', $value);
             foreach ($tags as $tag) {
-                $exists = DB::table($db_name)->where('id', $tag)->first();
-                if($exists){
-                    return true;                         
+                $exists = DB::table($this->db_name)->where('id', $tag)->first();
+                if(!$exists){
+                    return false;                         
                 }
             }
+            return true;
 
         }
         return false;
@@ -37,6 +46,7 @@ class ValidTag implements Rule
      */
     public function message()
     {
-        return 'Wrong tag';
+        return 'Invalid tag id';
     }
+
 }

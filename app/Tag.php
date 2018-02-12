@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+
 class Tag extends Model
 {
    public function notes() {
@@ -15,4 +16,5 @@ class Tag extends Model
    		 	$q->where('title', 'like', "%{$term}%");
    		});
 	}
+
 }

@@ -28,18 +28,5 @@ class TagNoteTableSeeder extends Seeder
 
         	]);
         }
-        for($i=1; $i<=10; $i++){
-
-        	DB::table('notes_to_tags')->insert([
-        		'note_id' => $faker->numberBetween($min = 1, $max = 10),
-        		'tag_id' => $faker->numberBetween($min = 1, $max = 4),
-        		'created_at' => \Carbon\Carbon::now(),
-        		'created_at' => \Carbon\Carbon::now(),
-
-
-        	]);
-        }
-
-
     }
 }

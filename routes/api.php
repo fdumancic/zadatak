@@ -17,7 +17,7 @@ use App\Tag;
 */
 
 
-//korisnici
+//users
 
 Route::get('/users', 'UsersController@read')->name('users')->middleware('AuthTest'); 
 
@@ -28,8 +28,7 @@ Route::get('/users/{id}/', 'UsersController@showUser')->middleware('AuthTest');
 Route::get('/users/{id}/notes', 'UsersController@showUserNotes')->middleware('AuthTest');
 
 
-
-//biljeske
+//notes
 
 Route::get('/notes', 'NotesController@search')->name('notes')->middleware('AuthTest');
 
@@ -40,7 +39,7 @@ Route::put('/notes/{id}', 'NotesController@update')->middleware('AuthTest');
 Route::get('/notes/{id}', 'NotesController@showNote')->middleware('AuthTest'); 
 
 
-//tagovi
+//tags
 
 Route::get('/tags', 'TagsController@search')->name('tags')->middleware('AuthTest');
 

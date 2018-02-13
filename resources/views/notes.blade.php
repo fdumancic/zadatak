@@ -1,9 +1,9 @@
-@extends('layouts.app')
+{{-- @extends('layouts.app')
 
 @section('content')
 
 
-{{-- <div class="container">
+<div class="container">
   <h1>Notes:</h1>
   <form method='POST' action='/notes'>
     {{ csrf_field() }}
@@ -40,5 +40,6 @@
         </div>
       </form>
 </div>
- --}}
+
 @endsection
+ --}}

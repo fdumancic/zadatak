@@ -1,4 +1,4 @@
-{{-- @extends('layouts.app')
+@extends('layouts.app')
 <title>Notebook</title>
 @section('content')
 <div class="container">
@@ -55,4 +55,3 @@
 @endsection
 
 
- --}}

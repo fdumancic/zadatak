@@ -38,6 +38,13 @@ Route::put('/notes/{id}', 'NotesController@update')->middleware('AuthTest');
 
 Route::get('/notes/{id}', 'NotesController@showNote')->middleware('AuthTest'); 
 
+Route::get('/notes/show/private', 'NotesController@showPrivate')->middleware('AuthTest'); 
+
+Route::get('/notes/show/public', 'NotesController@showPublic')->middleware('AuthTest'); 
+
+
+
+
 
 //tags
 

@@ -2,15 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use Request;
-use Auth;
 use App\Note;
 use App\Tag;
+use Auth;
+use Request;
+
 
 class TagsController extends Controller
-{
+{   
+/*    use \App\Traits\Taggable;*/
+
     public function showNotesWithTag($id)
     {
+
         $data = Tag::find($id)
         ->notes()
         ->where([
@@ -26,10 +30,13 @@ class TagsController extends Controller
 
         return $data;
 
+        
+
     }
     
     public function search()
     {
+
         $builder = Tag::query();
         $term = Request::input('tag', '');
         if(!empty($term)){
@@ -40,6 +47,7 @@ class TagsController extends Controller
         }
 
         return $data;
+
 
     }
 

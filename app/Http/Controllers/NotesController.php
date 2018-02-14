@@ -32,6 +32,10 @@ class NotesController extends Controller
     public function showNote($id)
     {
         $data = Note::find($id);
+
+        if(!$data){
+            abort(404, 'Not found');
+        }
         return $data;
     }    
 
@@ -100,6 +104,20 @@ class NotesController extends Controller
         return $data;
 
     }
+
+     public function showPrivate()
+     {
+
+        $data = Note::private()->get();
+        return $data;
+     }
+
+      public function showPublic()
+     {
+
+        $data = Note::public()->get();
+        return $data;
+     }
 
 }
     

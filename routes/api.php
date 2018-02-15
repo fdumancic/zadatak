@@ -51,3 +51,5 @@ Route::get('/notes/show/public', 'NotesController@showPublic')->middleware('Auth
 Route::get('/tags', 'TagsController@search')->name('tags')->middleware('AuthTest');
 
 Route::get('/tags/{id}/notes', 'TagsController@showNotesWithTag')->middleware('AuthTest');
+
+Route::get('/tags/with/tags/get', 'TagsController@withTags')->middleware('AuthTest');

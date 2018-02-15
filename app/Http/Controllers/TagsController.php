@@ -9,8 +9,8 @@ use Request;
 
 
 class TagsController extends Controller
-{   
-/*    use \App\Traits\Taggable;*/
+{
+    use \App\Traits\Taggable;
 
     public function showNotesWithTag($id)
     {
@@ -29,11 +29,8 @@ class TagsController extends Controller
         ->get();
 
         return $data;
-
-        
-
     }
-    
+
     public function search()
     {
 
@@ -49,6 +46,12 @@ class TagsController extends Controller
         return $data;
 
 
+    }
+
+    public function withTags()
+    {
+        $data = Note::all()->toArray();
+        return $data;
     }
 
 }

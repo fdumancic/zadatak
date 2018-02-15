@@ -37,11 +37,11 @@ class NotesController extends Controller
             abort(404, 'Not found');
         }
         return $data;
-    }    
+    }
 
 
     public function store(ValidationRequest $request)
-    {   
+    {
 
         $note = new Note;
         $note->user_id = Auth::id();
@@ -49,13 +49,13 @@ class NotesController extends Controller
         $note->note = $request->input('note');
         $note->type = $request->input('type');
         $tags = $request->input('tag_id');
-      
+
         //add tags to notes
 
         $tags = explode(',', $tags);
         $tag_count = count($tags);
         $number_of_tags = Tag::whereIn('id', $tags)->get()->count();
-         
+
         if($number_of_tags == $tag_count){
             $note->save();
             $note->tags()->attach($tags);
@@ -69,19 +69,19 @@ class NotesController extends Controller
 
         if(Gate::denies('update-note', [$note])){
             //return response("User can't perform this action.", 403);
-            abort(403, 'Access denied');           
+            abort(403, 'Access denied');
         }
 
         $note->title = $request->input('title');
         $note->note = $request->input('note');
         $note->type = $request->input('type');
         $tags = $request->input('tag_id');
-        
+
         //add tags to notes
 
         $tags = explode(',', $tags);
         $tag_count = count($tags);
-        $number_of_tags = Tag::whereIn('id', $tags)->get()->count(); 
+        $number_of_tags = Tag::whereIn('id', $tags)->get()->count();
 
         if($number_of_tags == $tag_count){
             $note->save();
@@ -89,7 +89,7 @@ class NotesController extends Controller
         }
         return 'updated';
     }
-    
+
     public function search(Request $request)
     {
         $builder = Note::query();
@@ -120,5 +120,3 @@ class NotesController extends Controller
      }
 
 }
-    
-

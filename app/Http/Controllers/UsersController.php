@@ -21,7 +21,7 @@ class UsersController extends Controller
 		  return $data;
     }
 
-   
+
   	public function showUser($id)
     {
       $data = User::find($id);
@@ -37,6 +37,5 @@ class UsersController extends Controller
       return $data;
     }
 
-    
-   
+
 }

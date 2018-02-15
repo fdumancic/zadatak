@@ -2,46 +2,27 @@
 
 namespace App\Traits;
 
+use App\Scopes\NoTagScope;
 use App\Tag;
+use App\WithTagScope;
 use Auth;
 use Request;
 
 trait Taggable
 {
-	public function searchTags() {
+	public function tags() {
 
-/*    	$builder = Tag::query();
-        $term = Request::input('tag', '');
-        if(!empty($term)){
-            $builder->where('tag', 'LIKE', '%'.$term.'%');
-            $data = $builder->orderBy('tag')->paginate(3);
-        } else {
-            $data = $builder->orderBy('created_at')->paginate(3);
-        }
-        return $data;*/
+        return $this->morphToMany('App\Tag', 'taggable');
     }
 
-    public function notesWithTag($id)
-    {
-      /*  $data = Tag::find($id)
-        ->notes()
-        ->where([
-            ['tag_id', '=', $id],
-            ['user_id', '=', Auth::id()],
-        ])
-        ->orWhere([
-            ['tag_id', '=', $id],
-            ['type', '=', 'public'],
-        ])
-        ->orderBy('id')
-        ->get();
+    public static function bootTaggable()
+	{
+		static::addGlobalScope(new WithTagScope);
+	}
 
-        return $data;
-*/
-
-
-    }
-
-
+	public static function withoutTags()
+	{
+		//
+	}
 
 }

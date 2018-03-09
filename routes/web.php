@@ -11,6 +11,9 @@
 |
 */
 
+Route::view('/first', 'first');
+Route::view('/second', 'second');
+
 Route::get('/', function () {
 	
     return view('welcome');

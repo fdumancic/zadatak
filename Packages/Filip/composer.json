@@ -1,0 +1,30 @@
+{
+    "name": "filip/custompackage",
+    "description": "creating custom package",
+    "type": "laravel",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "fdumancic",
+            "email": "dumancic.filip@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+    	"psr-4": {
+    		"Filip\\CustomPackage\\": "CustomPackage/Src"
+    	}
+    },
+    "extra": {
+	    "laravel": {
+	        "providers": [
+	            "Filip\\CustomPackage\\CustomPackageServiceProvider"
+	        ],
+	        "aliases": {
+	            "CustomPackage": "Filip\\CustomPackage\\Facade"
+	        }
+	    }
+	},
+
+
+}
